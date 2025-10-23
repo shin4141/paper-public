@@ -14,7 +14,6 @@ jobs:
         with:
           root_file: main.tex
           docker_image: texlive/texlive:latest
-          # ← ここで不足しがちなものを明示インストール
           pre_compile: |
             tlmgr update --self --all
             tlmgr install IEEEtran collection-bibtexextra latexmk
@@ -24,3 +23,13 @@ jobs:
         with:
           name: paper-pdf
           path: main.pdf
+
+      # ▼▼ ここを追加：ログ回収（失敗時でも落ちずに残す）
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: latex-logs
+          path: |
+            main.log
+            main.blg
+            main.bbl
