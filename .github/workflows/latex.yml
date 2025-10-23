@@ -10,22 +10,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ← TeX Live は「collection-◯◯」名を使うのが正解
-      - uses: teatimeguest/setup-texlive-action@v3
+      # TeX のセットアップとビルドを一括でやってくれる安定版
+      - uses: xu-cheng/latex-action@v3
         with:
-          packages: |
-            scheme-small
-            collection-latex
-            collection-latexrecommended
-            collection-latexextra
-            collection-fontsrecommended
-            collection-bibtexextra
-
-      - run: |
-          latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error main.tex
+          root_file: main.tex          # これだけで latexmk を実行
+          texlive_version: 2024
+          # 念のため追加で取るパッケージ（IEEEtran 等）
+          extra_packages: |
+            latexmk
+            IEEEtran
+            bibtex
 
       - uses: actions/upload-artifact@v4
         with:
           name: paper-pdf
           path: main.pdf
+
 
