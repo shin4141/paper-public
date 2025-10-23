@@ -10,20 +10,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # TeX のセットアップとビルドを一括でやってくれる安定版
+      # 安定版：LaTeX専用アクション（latexmkを内蔵）
       - uses: xu-cheng/latex-action@v3
         with:
-          root_file: main.tex          # これだけで latexmk を実行
+          root_file: main.tex
           texlive_version: 2024
-          # 念のため追加で取るパッケージ（IEEEtran 等）
+          # 足りがちなパッケージを多めに明示
           extra_packages: |
             latexmk
+            collection-latex
+            collection-latexrecommended
+            collection-latexextra
+            collection-fontsrecommended
+            collection-bibtexextra
             IEEEtran
-            bibtex
 
       - uses: actions/upload-artifact@v4
         with:
           name: paper-pdf
           path: main.pdf
+
 
 
