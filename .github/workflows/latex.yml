@@ -8,46 +8,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # まずリポの中身と現在地を可視化（パス間違い検出用）
-      - name: Debug: show tree
-        run: |
-          pwd
-          ls -la
-          echo "---- main.tex head ----"
-          sed -n '1,60p' main.tex || true
-
-      # LaTeX専用アクション（Docker内でlatexmkを実行）
       - name: Run LaTeX
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
           docker_image: texlive/texlive:latest
-          # 失敗しても処理を続行してログを回収する
-          continue_on_error: true
-          pre_compile: |
-            tlmgr update --self --all
-            tlmgr install IEEEtran collection-bibtexextra latexmk
+          pre_compile: tlmgr update --self --all && tlmgr install IEEEtran collection-bibtexextra latexmk
           args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
 
-      # 生成物（PDF）があれば回収
       - name: Upload PDF
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: paper-pdf
-          path: |
-            main.pdf
-
-      # ログを必ず回収（別ディレクトリでも拾えるようにglob）
-      - name: Upload LaTeX logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: latex-logs
-          path: |
-            **/main.log
-            **/main.blg
-            **/main.bbl
-            **/texput.log
+          path: main.pdf
