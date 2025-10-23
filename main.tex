@@ -1,4 +1,49 @@
-\documentclass{article}
+\documentclass[10pt,conference]{IEEEtran} % 変更可: \documentclass[sigconf]{acmart}
+
+% ====== Packages (最小) ======
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{cite}        % IEEE系ではほぼ必須（←追加）
+\usepackage[hidelinks]{hyperref}
+
+% ====== Metadata ======
+\title{Decision-OS V5 (SiriusA): A Human-in-the-Loop Decision System with Aspire-First Layer}
+\author{
+  \IEEEauthorblockN{Shin (BSC)}
+  \IEEEauthorblockA{Decision-OS Lab\\
+  \texttt{https://github.com/shin4141/paper-public}}
+}
+
 \begin{document}
-Hello
+\maketitle
+
+\begin{abstract}
+This paper introduces Decision-OS V5 (SiriusA), a human-in-the-loop decision framework that
+prioritizes aspiration (Aspire-first) while preserving guardrails such as EV gates, WAIT48h,
+and intervention rules. We report a minimal public set of principles, diagrams (sans thresholds),
+and anonymized KPIs for reproducible evaluation.
+\end{abstract}
+
+\section{Introduction}
+% 目的／課題／貢献（Contributions）を3–5段落
+
+\section{Background \& Lineage}
+% Polaris → DGIS → SiriusA の系譜（数値や内部プロンプトの全文は出さない）
+
+\section{System Overview}
+% フロー図（figures/）参照。しきい値の実数や検知語の全文は非公開。
+
+\section{Evaluation Protocol}
+% 匿名KPI (Adherence, Decision Time, FPR/FNR, Net Benefit, Brier/ECE)
+
+\section{Ethics \& Safety}
+% 非医療・2タップ手動・HITL・保持/破棄・誤発報対策など
+
+\section{Limitations \& Future Work}
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
 \end{document}
