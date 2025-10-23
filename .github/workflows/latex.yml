@@ -9,13 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # LaTeX用安定アクション（extra_packagesは非対応なので削除）
       - uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
           texlive_version: 2024
-          # 必要なものを全部入れる “フルスキーム”
-          extra_packages: |
-            scheme-full
+          docker_image: texlive/texlive:latest  # 最新TeX環境を使用
+
       - uses: actions/upload-artifact@v4
         with:
           name: paper-pdf
