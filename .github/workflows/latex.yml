@@ -9,26 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      # 安定版：LaTeX専用アクション（latexmkを内蔵）
       - uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
           texlive_version: 2024
-          # 足りがちなパッケージを多めに明示
+          # 必要なものを全部入れる “フルスキーム”
           extra_packages: |
-            latexmk
-            collection-latex
-            collection-latexrecommended
-            collection-latexextra
-            collection-fontsrecommended
-            collection-bibtexextra
-            IEEEtran
-
+            scheme-full
       - uses: actions/upload-artifact@v4
         with:
           name: paper-pdf
           path: main.pdf
-
-
-
