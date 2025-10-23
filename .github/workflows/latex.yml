@@ -10,12 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # LaTeX用安定アクション（extra_packagesは非対応なので削除）
       - uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
-          texlive_version: 2024
-          docker_image: texlive/texlive:latest  # 最新TeX環境を使用
+          docker_image: texlive/texlive:latest
+          args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
 
       - uses: actions/upload-artifact@v4
         with:
