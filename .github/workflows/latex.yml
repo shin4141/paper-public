@@ -10,14 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Debug: show tree
+      - name: "Debug show tree"
         run: |
           pwd
           ls -la
           echo "---- main.tex head ----"
           sed -n '1,60p' main.tex || true
 
-      - name: Run LaTeX
+      - name: "Run LaTeX"
         uses: xu-cheng/latex-action@v3
         continue-on-error: true
         with:
@@ -28,14 +28,14 @@ jobs:
             tlmgr install IEEEtran collection-bibtexextra latexmk
           args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
 
-      - name: Upload PDF
+      - name: "Upload PDF"
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: paper-pdf
           path: main.pdf
 
-      - name: Upload LaTeX logs
+      - name: "Upload LaTeX logs"
         if: always()
         uses: actions/upload-artifact@v4
         with:
